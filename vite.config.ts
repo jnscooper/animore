@@ -18,9 +18,10 @@ export default defineConfig({
     vueLayouts(),
     autoImport({
       imports: ['vue', 'vue-router', 'pinia'],
+      dirs: ['src/composables'],
     }),
     vueComponents({
-      dirs: ['src/components', 'src/composables'],
+      dirs: ['src/components'],
     }),
     tailwindcss(),
   ],

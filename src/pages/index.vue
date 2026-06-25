@@ -1,7 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { data, pending, error } = useJikan('genres/anime')
+</script>
 
 <template>
-  <h1 class="text-red-500">index page</h1>
+  <div v-if="pending">loading...</div>
+  <div v-else-if="error">
+    <h1 class="text-red-500">Error occurred</h1>
+  </div>
+  <div v-else>
+    <h1 class="text-red-500">{{ data }}</h1>
+  </div>
 </template>
 
 <style scoped></style>
