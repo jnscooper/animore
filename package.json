@@ -17,11 +17,13 @@
   },
   "dependencies": {
     "axios": "^1.18.1",
+    "flyonui": "^2.4.1",
     "pinia": "^3.0.4",
     "vue": "^3.5.38",
     "vue-router": "https://pkg.pr.new/vue-router@2603"
   },
   "devDependencies": {
+    "@iconify/tailwind4": "^1.2.3",
     "@tailwindcss/vite": "^4.3.1",
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^24.13.2",

@@ -99,8 +99,6 @@ export const createRequest = <
               isErrorLike = config?.errorLike?.(data) || false
             }
 
-            console.log(isErrorLike)
-
             return isErrorLike ? Promise.reject({ __CODE__: 'ERROR_LIKE', data }) : data
           }
     const onRejected: RawOnRejected<R> =

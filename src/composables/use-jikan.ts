@@ -30,10 +30,8 @@ export const useJikan = <Path extends keyof JikanPaths>(
     ? [opt: JikanPaths[Path][0]]
     : [opt?: JikanPaths[Path][0]]
 ) => {
-  const opt = args[0]
+  const opt = args[0] ?? {}
   const { query = {}, body = {}, ...slots } = opt as JikanArguments<any>
-
-  console.log(slots)
 
   path = path.replace(/\{([^}]+)\}/g, (_, key) => (slots as Record<string, any>)?.[key]) as Path
 

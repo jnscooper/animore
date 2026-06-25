@@ -7,4 +7,11 @@ const router = createRouter({
   routes: setupLayouts(routes as RouteRecordRaw[]),
 })
 
+router.afterEach(async (_, __, failure) => {
+  if (!failure)
+    setTimeout(() => {
+      window.HSStaticMethods?.autoInit()
+    }, 100)
+})
+
 export default router
