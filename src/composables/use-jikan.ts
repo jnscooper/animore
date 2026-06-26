@@ -21,14 +21,31 @@ type HasRequired<T extends object> = keyof {
   ? false
   : true
 
+type RefArgs<T> = {
+  [K in keyof T]: Ref<T[K]>
+}
+
+const collectRefs = (obj: any, refs: Ref[] = []) => {
+  if (isRef(obj)) {
+    refs.push(obj)
+    return refs
+  }
+
+  if (obj && typeof obj === 'object') {
+    Object.values(obj).forEach((v) => collectRefs(v, refs))
+  }
+
+  return refs
+}
+
 /**
  * Path reference {@linkcode JikanPaths}
  */
 export const useJikan = <Path extends keyof JikanPaths>(
   path: Path,
   ...args: HasRequired<JikanPaths[Path][0]> extends true
-    ? [opt: JikanPaths[Path][0]]
-    : [opt?: JikanPaths[Path][0]]
+    ? [opt: JikanPaths[Path][0] | RefArgs<JikanPaths[Path][0]>]
+    : [opt?: JikanPaths[Path][0] | RefArgs<JikanPaths[Path][0]>]
 ) => {
   const opt = args[0] ?? {}
   const { query = {}, body = {}, ...slots } = opt as JikanArguments<any>
@@ -43,7 +60,7 @@ export const useJikan = <Path extends keyof JikanPaths>(
     pending.value = true
     jikanRequest
       .get(path, {
-        params: query,
+        params: unref(query),
       })
       .then((res) => {
         data.value = res
@@ -60,6 +77,14 @@ export const useJikan = <Path extends keyof JikanPaths>(
   }
 
   execute()
+
+  const refs = collectRefs(opt)
+
+  console.log('refs', refs)
+
+  if (refs.length) {
+    watch(refs, execute, { deep: true })
+  }
 
   return {
     pending,
