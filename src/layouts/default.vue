@@ -228,6 +228,30 @@ onMounted(() => {
   <main class="min-h-screen p-6">
     <router-view />
   </main>
+  <footer
+    class="w-full max-w-(--breakpoint-2xl) mx-auto pt-20 p-6 font-fugaz text-[clamp(10.5px,2vw,14px)] text-neutral/50 flex flex-col md:flex-row justify-center items-center md:justify-between md:items-end"
+  >
+    <div class="flex flex-col justify-center items-center md:items-start">
+      <div>
+        Anime data from
+        <a href="https://jikan.moe/" target="_blank" class="link link-secondary">Jikan API</a>.
+      </div>
+      <div>Images belong to their respective copyright holders.</div>
+    </div>
+    <div class="flex flex-col justify-center items-center md:items-end">
+      <div>
+        &copy;
+        <!-- @prettier-ignore -->
+        2026 {{ new Date().getFullYear() > 2026 ? '-' + new Date().getFullYear() : '' }} Animore.
+        <!-- @prettier-ignore -->
+        All rights reserved.
+      </div>
+      <div>
+        Developed by
+        <a href="https://jnscooper.github.io/" target="_blank" class="link link-secondary">JCoop</a>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <style scoped></style>
