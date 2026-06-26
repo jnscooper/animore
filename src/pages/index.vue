@@ -1,8 +1,14 @@
 <script setup lang="ts">
-const { data, pending, error } = useJikan('genres/anime')
+const query = ref<JikanPaths['top/anime'][0]['query']>({
+  page: 1,
+})
+
+// const { data, pending, error, refresh } = useJikan('top/anime', { query })
 </script>
 
 <template>
+  <button class="btn" @click="++query.page!">Next page</button>
+  <!-- <button class="btn" @click="refresh">Refresh</button> -->
   <button
     type="button"
     class="collapse-toggle btn btn-primary"
@@ -28,13 +34,13 @@ const { data, pending, error } = useJikan('genres/anime')
       </p>
     </div>
   </div>
-  <div v-if="pending">loading...</div>
+  <!-- <div v-if="pending">loading...</div>
   <div v-else-if="error">
     <h1 class="text-red-500">Error occurred</h1>
   </div>
   <div v-else>
     <h1 class="text-red-500">{{ data }}</h1>
-  </div>
+  </div> -->
 </template>
 
 <style scoped></style>

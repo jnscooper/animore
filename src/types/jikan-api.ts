@@ -139,3 +139,12 @@ export type AnimeBroadcast = {
 export type GenresAnimeQuery = {
   filter?: 'genres' | 'explicit_genres' | 'themes' | 'demographics'
 }
+
+export type TopAnimeQuery = {
+  type?: 'TV' | 'OVA' | 'Movie' | 'Special' | 'ONA' | 'Music' | 'CM' | 'PV' | 'TV Special'
+  filter?: 'airing' | 'upcoming' | 'bypopularity' | 'favorite'
+  rating?: 'g' | 'pg' | 'pg13' | 'r17' | 'r' | 'rx'
+  sfw?: boolean
+  page?: number
+  limit?: number
+}

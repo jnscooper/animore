@@ -4,3 +4,15 @@
 
 @import '../../node_modules/flyonui/variants.css'; /* Require only if you want to use FlyonUI JS component */
 @source "../../node_modules/flyonui/dist/index.js";
+
+@theme inline {
+  --font-fugaz: 'Fugaz One', system-ui;
+}
+
+#app {
+  @apply relative w-full h-full min-h-screen;
+}
+
+[class*='icon-'] {
+  @apply size-6;
+}

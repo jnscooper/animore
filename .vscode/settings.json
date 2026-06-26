@@ -12,8 +12,10 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "cSpell.words": [
     "flyonui",
+    "gsap",
     "iconify",
-    "jikan"
+    "jikan",
+    "tabler"
   ],
   "files.associations": {
     "*.css": "tailwindcss"
