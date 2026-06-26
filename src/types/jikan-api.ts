@@ -18,7 +18,17 @@ export type Pagination = {
   }
 }
 
-export type AnimeType = 'TV' | 'Movie' | 'OVA' | 'ONA' | 'Special' | 'Music' | 'Unknown'
+export type AnimeType =
+  | 'TV'
+  | 'OVA'
+  | 'Movie'
+  | 'Special'
+  | 'ONA'
+  | 'Music'
+  | 'CM'
+  | 'PV'
+  | 'TV Special'
+  | 'Unknown'
 
 export type AnimeStatus = 'Finished Airing' | 'Currently Airing' | 'Not yet aired'
 
@@ -141,7 +151,7 @@ export type GenresAnimeQuery = {
 }
 
 export type TopAnimeQuery = {
-  type?: 'TV' | 'OVA' | 'Movie' | 'Special' | 'ONA' | 'Music' | 'CM' | 'PV' | 'TV Special'
+  type?: AnimeType
   filter?: 'airing' | 'upcoming' | 'bypopularity' | 'favorite'
   rating?: 'g' | 'pg' | 'pg13' | 'r17' | 'r' | 'rx'
   sfw?: boolean

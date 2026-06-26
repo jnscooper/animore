@@ -9,10 +9,18 @@
   --font-fugaz: 'Fugaz One', system-ui;
 }
 
+@utility font-fugaz-normalize {
+  @apply font-fugaz skew-x-6;
+}
+
+@utility page {
+  @apply w-full max-w-(--breakpoint-xl) mx-auto;
+}
+
 #app {
   @apply relative w-full h-full min-h-screen;
 }
 
-[class*='icon-'] {
+[class*='icon-']:not([class*='size-']) {
   @apply size-6;
 }

@@ -1,6 +1,8 @@
 import './assets/main.css'
 import '@fontsource/fugaz-one/400.css'
 import 'lenis/dist/lenis.css'
+import 'swiper/css'
+import 'swiper/css/navigation'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

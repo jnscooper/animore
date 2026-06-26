@@ -42,7 +42,7 @@ onMounted(() => {
 <template>
   <div id="smooth-wrapper">
     <div id="smooth-content">
-      <vue-lenis root ref="lenisRef" :options="{ autoRaf: false }">
+      <vue-lenis root ref="lenisRef" :options="{ autoRaf: false, allowNestedScroll: true }">
         <router-view :lenis="lenisRef?.lenis" />
       </vue-lenis>
     </div>
