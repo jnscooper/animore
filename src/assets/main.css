@@ -7,6 +7,8 @@
 
 @theme inline {
   --font-fugaz: 'Fugaz One', system-ui;
+
+  --spacing-anime-card: clamp(14rem, 20vw, 18rem);
 }
 
 @utility font-fugaz-normalize {

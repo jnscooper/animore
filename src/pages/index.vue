@@ -76,7 +76,7 @@ const sections = computed(() => [
         :simulate-touch="false"
         :space-between="16"
         slides-per-view="auto"
-        class="size-full flex flex-nowrap rounded-box"
+        class="w-full h-anime-card flex flex-nowrap rounded-box"
       >
         <div
           class="custom-prev absolute left-0 inset-y-0 w-12 z-10 flex justify-start items-center bg-linear-to-l from-transparent via-base-100/30 to-base-100 cursor-pointer"
@@ -87,9 +87,9 @@ const sections = computed(() => [
         <swiper-slide
           v-for="item in section.items"
           :key="item.mal_id"
-          class="h-64 aspect-3/4 w-auto!"
+          class="w-auto! h-full aspect-3/4 overflow-hidden"
         >
-          <router-link to="/" class="relative inline-block h-64 aspect-3/4">
+          <router-link to="/" class="relative inline-block size-full">
             <img
               :src="item.images.webp.image_url"
               :alt="item.title"
