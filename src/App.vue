@@ -37,6 +37,10 @@ onMounted(() => {
     smoothTouch: 0.1,
   })
 })
+
+onErrorCaptured((err) => {
+  console.error(err)
+})
 </script>
 
 <template>

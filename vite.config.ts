@@ -13,10 +13,10 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   base: '/animore/',
   plugins: [
-    vue(),
-    vueDevTools(),
     vueRouter(),
+    vue(),
     vueLayouts(),
+    vueDevTools(),
     autoImport({
       imports: ['vue', 'vue-router', 'pinia'],
       dirs: ['src/composables'],

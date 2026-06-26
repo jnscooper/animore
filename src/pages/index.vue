@@ -1,4 +1,7 @@
 <script setup lang="ts">
+definePage({
+  name: '__index',
+})
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation } from 'swiper/modules'
 import { isMobile } from '@/utils/device'
