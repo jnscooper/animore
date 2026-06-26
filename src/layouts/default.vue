@@ -28,6 +28,10 @@ const menus = [
     label: 'About',
     path: '/about',
   },
+  {
+    label: 'My Portfolio',
+    path: 'https://jnscooper.github.io',
+  },
 ]
 
 const split = computed(() => SplitText.create('.menu-item', { type: 'chars,words,lines' }))
@@ -149,12 +153,20 @@ onMounted(() => {
           :key="menu.path"
           class="menu-item invisible relative cursor-pointer"
         >
+          <a
+            v-if="menu.path.startsWith('http')"
+            :href="menu.path"
+            target="  "
+            class="inline-block w-full text-end p-4 rounded-box font-fugaz text-lg"
+          >
+            {{ menu.label }}
+          </a>
           <router-link
+            v-else
             :to="menu.path"
             class="inline-block w-full text-end p-4 rounded-box font-fugaz text-lg relative after:absolute after:content-[''] after:right-0 after:inset-y-4 after:w-1 after:bg-primary after:scale-(--scale) after:origin-top"
             style="--scale: 0"
           >
-            <!-- activeClass="after:opacity-100" -->
             {{ menu.label }}
           </router-link>
         </li>
