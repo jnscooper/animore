@@ -4,9 +4,9 @@
 import type { Fallback } from '@/types/common'
 import { createRequest } from '@/utils/request'
 
-type AsyncData<T, E = Error> = {
+type AsyncData<D, E = Error> = {
   pending: Ref<boolean>
-  data: Ref<T>
+  data: Ref<D>
   error: Ref<E>
   refresh: () => void
 }
@@ -38,17 +38,48 @@ const collectRefs = (obj: any, refs: Ref[] = []) => {
   return refs
 }
 
+type FlattenData<T, Enable extends boolean> = Enable extends true
+  ? T extends { data: infer D }
+    ? Omit<T, 'data'> & D
+    : T
+  : T
+
+type FlattenPagination<T, Enable extends boolean> = Enable extends true
+  ? T extends { pagination: infer P }
+    ? Omit<T, 'pagination'> & P
+    : T
+  : T
+
+type FlattenUnwrap<T, U> = FlattenPagination<
+  FlattenData<T, U extends { unwrap: { data: true } } ? true : false>,
+  U extends { unwrap: { pagination: true } } ? true : false
+>
+
+type RelatedKeys<T> = {
+  readonly [K in keyof T]?: boolean
+}
+
+type BuildOptions<Raw, U> = (Raw & { unwrap?: U }) | RefArgs<Raw & { unwrap?: U }>
+
 /**
  * Path reference {@linkcode JikanPaths}
  */
-export const useJikan = <Path extends keyof JikanPaths>(
+export const useJikan = <
+  const Path extends keyof JikanPaths,
+  const U extends RelatedKeys<JikanPaths[Path][1]> = RelatedKeys<JikanPaths[Path][1]>,
+>(
   path: Path,
   ...args: HasRequired<JikanPaths[Path][0]> extends true
-    ? [opt: JikanPaths[Path][0] | RefArgs<JikanPaths[Path][0]>]
-    : [opt?: JikanPaths[Path][0] | RefArgs<JikanPaths[Path][0]>]
+    ? [opt: BuildOptions<JikanPaths[Path][0], U>]
+    : [opt?: BuildOptions<JikanPaths[Path][0], U>]
 ) => {
   const opt = args[0] ?? {}
-  const { query = {}, body = {}, ...slots } = opt as JikanArguments<any>
+  const {
+    query = {},
+    body = {},
+    unwrap = { data: false, pagination: false },
+    ...slots
+  } = opt as JikanArguments<any> & { unwrap: U }
 
   path = path.replace(/\{([^}]+)\}/g, (_, key) => (slots as Record<string, any>)?.[key]) as Path
 
@@ -63,7 +94,14 @@ export const useJikan = <Path extends keyof JikanPaths>(
         params: unref(query),
       })
       .then((res) => {
-        data.value = res
+        const _data = Object.entries(unwrap).reduce(
+          (acc, [key, value]) => (
+            value && key in res ? (acc = { ...acc, ...res[key] }) : (acc = res),
+            acc
+          ),
+          {} as Awaited<JikanPaths[Path][1]>,
+        )
+        data.value = _data
         error.value = undefined
       })
       .catch((err) => {
@@ -91,5 +129,8 @@ export const useJikan = <Path extends keyof JikanPaths>(
     data,
     error,
     refresh: execute,
-  } as AsyncData<JikanPaths[Path][1], Fallback<JikanPaths[Path][2], Error>>
+  } as AsyncData<
+    FlattenUnwrap<JikanPaths[Path][1], { unwrap: U }>,
+    Fallback<JikanPaths[Path][2], Error>
+  >
 }

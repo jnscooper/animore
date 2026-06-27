@@ -1,10 +1,9 @@
 <script setup lang="ts">
-definePage({
-  name: '__index',
-})
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation } from 'swiper/modules'
 import { isMobile } from '@/utils/device'
+import { encode } from '@/utils/encrypt'
+import { uniqBy } from 'lodash-es'
 
 const {
   data: airingAnime,
@@ -47,7 +46,7 @@ const sections = computed(() => [
   {
     title: 'Upcoming',
     icon: 'icon-[tabler--calendar-time]',
-    items: upcomingAnime.value?.data || [],
+    items: uniqBy(upcomingAnime.value?.data || [], 'mal_id'),
     pending: upcomingPending.value,
     error: upcomingError.value,
     refresh: upcomingRefresh,
@@ -76,6 +75,7 @@ const sections = computed(() => [
         :simulate-touch="false"
         :space-between="16"
         slides-per-view="auto"
+        tag="ul"
         class="w-full h-anime-card flex flex-nowrap rounded-box"
       >
         <div
@@ -87,9 +87,16 @@ const sections = computed(() => [
         <swiper-slide
           v-for="item in section.items"
           :key="item.mal_id"
+          tag="li"
           class="w-auto! h-full aspect-3/4 overflow-hidden"
         >
-          <router-link to="/" class="relative inline-block size-full">
+          <router-link
+            :to="{
+              path: `/anime/${item.mal_id}`,
+              query: { c: encode(item.images.webp.image_url) },
+            }"
+            class="relative inline-block size-full"
+          >
             <img
               :src="item.images.webp.image_url"
               :alt="item.title"

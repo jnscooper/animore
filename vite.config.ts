@@ -19,7 +19,7 @@ export default defineConfig({
     vueDevTools(),
     autoImport({
       imports: ['vue', 'vue-router', 'pinia'],
-      dirs: ['src/composables'],
+      dirs: ['src/composables', 'src/stores'],
     }),
     vueComponents({
       dirs: ['src/components'],

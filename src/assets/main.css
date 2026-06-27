@@ -16,7 +16,7 @@
 }
 
 @utility page {
-  @apply w-full max-w-(--breakpoint-xl) mx-auto;
+  @apply w-full max-w-(--breakpoint-xl) mx-auto font-fugaz;
 }
 
 #app {

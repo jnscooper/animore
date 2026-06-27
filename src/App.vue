@@ -46,7 +46,7 @@ onErrorCaptured((err) => {
 <template>
   <div id="smooth-wrapper">
     <div id="smooth-content">
-      <vue-lenis root ref="lenisRef" :options="{ autoRaf: false, allowNestedScroll: true }">
+      <vue-lenis root ref="lenisRef" :options="{ autoRaf: false }">
         <router-view :lenis="lenisRef?.lenis" />
       </vue-lenis>
     </div>

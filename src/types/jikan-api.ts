@@ -158,3 +158,26 @@ export type TopAnimeQuery = {
   page?: number
   limit?: number
 }
+
+export type CharacterItem = {
+  mal_id: number
+  url: string
+  name: string
+  image_url: string
+}
+
+export type VoiceActor = {
+  person: {
+    mal_id: number
+    url: string
+    name: string
+    image_url: string
+  }
+  language: string
+}
+
+export type Character = {
+  character: CharacterItem
+  role: string
+  voice_actors: VoiceActor[]
+}
